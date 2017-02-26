@@ -112,7 +112,7 @@ public class ChooseAreaFragment extends Fragment {
         if (provinceList.size() > 0){
             dataList.clear();
             for (Province province:provinceList){
-                dataList.add(province.getProviceName());
+                dataList.add(province.getProvinceName());
             }
             adapter.notifyDataSetChanged();
             listView.setSelection(0);
@@ -123,7 +123,7 @@ public class ChooseAreaFragment extends Fragment {
         }
     }
     private void queryCities() {
-        titleText.setText(selectedProvince.getProviceName());
+        titleText.setText(selectedProvince.getProvinceName());
         backButton.setVisibility(View.VISIBLE);
         cityList = DataSupport.where("provinceid = ?", String.valueOf(selectedProvince.getId())).find(City.class);
         if (cityList.size() > 0) {

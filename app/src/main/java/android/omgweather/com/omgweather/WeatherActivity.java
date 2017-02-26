@@ -1,5 +1,6 @@
 package android.omgweather.com.omgweather;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.omgweather.com.omgweather.gson.Daily_forecast;
@@ -94,17 +95,17 @@ public class WeatherActivity extends AppCompatActivity {
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String weatherString = prefs.getString("weather", null);
+//        String weatherString = prefs.getString("weather", null);
         final String weatherId;
-        if (weatherString != null){
-            Weather weather = Utility.handleWeatherResponse(weatherString);
-            weatherId = weather.basic.weatherId;
-            showWeatherInfo(weather);
-        } else {
+//        if (weatherString != null){
+//            Weather weather = Utility.handleWeatherResponse(weatherString);
+//            weatherId = weather.basic.weatherId;
+//            showWeatherInfo(weather);
+//        } else {
             weatherId = getIntent().getStringExtra("weather_id");
             weatherLayout.setVisibility(View.INVISIBLE);
             requestWeather(weatherId);
-        }
+//        }
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -215,4 +216,12 @@ public class WeatherActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Intent intent = new Intent(WeatherActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
 }
